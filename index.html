@@ -54,6 +54,12 @@
       background-color: #0088a9;
       color: #1f2029;
     }
+    table thead tr {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background-color: #0088a9;
+    }
 
     table tbody tr:hover {
       background-color: #2c2d39;
@@ -64,6 +70,26 @@
       border-radius: 10px;
       padding: 1rem;
       box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    .tooltip {
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      background-color: #2c2d39;
+      color: #c4c3ca;
+      border-radius: 8px;
+      padding: 8px;
+      position: absolute;
+      z-index: 10;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+      font-size: 0.9rem;
+      min-width: 150px;
+    }
+
+    .player-name:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
     }
   </style>
 </head>
@@ -88,7 +114,14 @@
     <!-- Home (Leaderboard) -->
     <section id="home" class="page">
       <h2 class="text-3xl font-bold text-center mb-6 text-white">🏆 Leaderboard</h2>
-      <div class="flex justify-center mb-4">
+      <div class="flex flex-col sm:flex-row justify-between items-center mb-4 gap-2">
+        <div class="flex items-center gap-2">
+          <label for="gameType" class="text-white font-semibold">Game Type:</label>
+          <select id="gameType" class="px-3 py-2 rounded-lg bg-[#2c2d39] text-white border border-[#0088a9] focus:ring-2 focus:ring-[#0088a9]" onchange="changeGameType()">
+            <option value="blitz">Blitz</option>
+            <option value="rapid">Rapid</option>
+          </select>
+        </div>
         <input type="text" id="searchInput" placeholder="Search player..."
           class="w-full sm:w-1/2 px-4 py-2 rounded-lg shadow-sm focus:ring-2 focus:ring-[#0088a9] bg-[#2c2d39] text-white"
           onkeyup="filterPlayers()" />
@@ -148,7 +181,6 @@
             <p class="text-sm mt-2">GCash</p>
           </div>
         </div>
-        <!-- <button class="btn-primary">Donate Now</button> -->
       </div>
     </section>
 
@@ -157,9 +189,9 @@
       <h2 class="text-3xl font-bold text-center mb-6 text-white">📩 Contact Us</h2>
       <div class="card space-y-4 max-w-md mx-auto">
         <p class="text-center">Reach out to us for inquiries, partnerships, or to join the Roaring Lion Chess Club!</p>
-        <p class="text-center"><span class="font-semibold text-[#0088a9]">Email:</span> roaringlionCC@gmail.com</p>
-        <p class="text-center"><span class="font-semibold text-[#0088a9]">Phone:</span> +63 912 345 6789</p>
-        <p class="text-center"><span class="font-semibold text-[#0088a9]">Address:</span> Pangasinan State University, Alvear St, Lingayen, Pangasinan, Philippines</p>
+        <p class="text-center"><span class="font-semibold text-[#0088a9]">Email:</span> roaringlionchessclub@gmail.com</p>
+        <p class="text-center"><span class="font-semibold text-[#0088a9]">Phone:</span> +63 976 477 2762</p>
+        <p class="text-center"><span class="font-semibold text-[#0088a9]">Address:</span> Pangasinan State University, Alvear St, Lingayen, Pangasinan</p>
         <p class="text-center"><span class="font-semibold text-[#0088a9]">Social Media:</span> <a href="https://facebook.com/rlccpsu" class="text-[#0088a9] hover:underline">Facebook</a> | <a href="https://instagram.com/rlccpsu" class="text-[#0088a9] hover:underline">Instagram</a></p>
       </div>
     </section>
@@ -173,33 +205,74 @@
   </footer>
 
   <script>
-    const players = [
-      { rank: 1, name: "Johnwille Castro", elo: 1980, wins: 13, losses: 5, draws: 2 },
-      { rank: 2, name: "John Quinto", elo: 1940, wins: 11, losses: 7, draws: 2 },
-      { rank: 3, name: "Spencer Augusto", elo: 1920, wins: 10, losses: 8, draws: 2 },
-      { rank: 4, name: "Jeffrey Tolintino", elo: 1900, wins: 9, losses: 8, draws: 3 },
-      { rank: 5, name: "Kurstine Saplan", elo: 1880, wins: 9, losses: 7, draws: 4 },
-      { rank: 6, name: "Russet Daroy", elo: 1680, wins: 4, losses: 11, draws: 3 },
-      { rank: 7, name: "Roselle Estrada", elo: 1700, wins: 5, losses: 10, draws: 3 },
-      { rank: 8, name: "Earl De Guzman", elo: 1760, wins: 6, losses: 11, draws: 3 },
-      { rank: 9, name: "Rex Nening", elo: 1740, wins: 6, losses: 10, draws: 2 },
-      { rank: 10, name: "Denver Salinas", elo: 1800, wins: 7, losses: 9, draws: 4 },
-      { rank: 11, name: "Alona Marie De Guzman", elo: 1820, wins: 7, losses: 10, draws: 3 },
-      { rank: 12, name: "Ronnielyn Mejia Cuison", elo: 1720, wins: 5, losses: 11, draws: 2 },
-      { rank: 13, name: "Alber Frianeza", elo: 1860, wins: 8, losses: 9, draws: 3 },
-    ];
+    // Example data for both Blitz and Rapid
+    const playersData = {
+      blitz: [
+        { rank: 1, name: "Johnwille Castro", elo: 1980, wins: 13, losses: 5, draws: 2 },
+        { rank: 2, name: "John Quinto", elo: 1940, wins: 11, losses: 7, draws: 2 },
+        { rank: 3, name: "Spencer Augusto", elo: 1920, wins: 10, losses: 8, draws: 2 },
+        { rank: 4, name: "Jeffrey Tolintino", elo: 1900, wins: 9, losses: 8, draws: 3 },
+        { rank: 5, name: "Kurstine Saplan", elo: 1880, wins: 9, losses: 7, draws: 4 },
+        { rank: 6, name: "Russet Daroy", elo: 1680, wins: 4, losses: 11, draws: 3 },
+        { rank: 7, name: "Roselle Estrada", elo: 1700, wins: 5, losses: 10, draws: 3 },
+        { rank: 8, name: "Earl De Guzman", elo: 1760, wins: 6, losses: 11, draws: 3 },
+        { rank: 9, name: "Rex Nening", elo: 1740, wins: 6, losses: 10, draws: 2 },
+        { rank: 10, name: "Denver Salinas", elo: 1800, wins: 7, losses: 9, draws: 4 },
+        { rank: 11, name: "Alona Marie De Guzman", elo: 1820, wins: 7, losses: 10, draws: 3 },
+        { rank: 12, name: "Ronnielyn Mejia Cuison", elo: 1720, wins: 5, losses: 11, draws: 2 },
+        { rank: 13, name: "Alber Frianeza", elo: 1860, wins: 8, losses: 9, draws: 3 },
+      ],
+      rapid: [
+        { rank: 1, name: "John Quinto", elo: 2020, wins: 15, losses: 4, draws: 1 },
+        { rank: 2, name: "Johnwille Castro", elo: 2000, wins: 14, losses: 6, draws: 2 },
+        { rank: 3, name: "Spencer Augusto", elo: 1950, wins: 12, losses: 7, draws: 3 },
+        { rank: 4, name: "Kurstine Saplan", elo: 1930, wins: 11, losses: 8, draws: 3 },
+        { rank: 5, name: "Jeffrey Tolintino", elo: 1910, wins: 10, losses: 9, draws: 3 },
+        { rank: 6, name: "Denver Salinas", elo: 1890, wins: 9, losses: 10, draws: 3 },
+        { rank: 7, name: "Alber Frianeza", elo: 1880, wins: 8, losses: 10, draws: 4 },
+        { rank: 8, name: "Alona Marie De Guzman", elo: 1850, wins: 8, losses: 11, draws: 3 },
+        { rank: 9, name: "Earl De Guzman", elo: 1830, wins: 7, losses: 12, draws: 3 },
+        { rank: 10, name: "Roselle Estrada", elo: 1800, wins: 6, losses: 12, draws: 4 },
+        { rank: 11, name: "Rex Nening", elo: 1780, wins: 6, losses: 11, draws: 3 },
+        { rank: 12, name: "Ronnielyn Mejia Cuison", elo: 1750, wins: 5, losses: 12, draws: 3 },
+        { rank: 13, name: "Russet Daroy", elo: 1700, wins: 4, losses: 13, draws: 3 },
+      ]
+    };
 
+    let currentGameType = 'blitz';
+    let players = playersData[currentGameType];
+
+    function calculatePercentages(player) {
+      const totalGames = player.wins + player.losses + player.draws;
+      if (totalGames === 0) return { win: 0, loss: 0, draw: 0 };
+      return {
+        win: ((player.wins / totalGames) * 100).toFixed(1),
+        loss: ((player.losses / totalGames) * 100).toFixed(1),
+        draw: ((player.draws / totalGames) * 100).toFixed(1)
+      };
+    }
 
     function loadLeaderboard() {
+      players = playersData[currentGameType];
       const tbody = document.getElementById("leaderboard-body");
       const cards = document.getElementById("leaderboard-cards");
       tbody.innerHTML = "";
       cards.innerHTML = "";
       players.forEach(p => {
+        const percentages = calculatePercentages(p);
         tbody.innerHTML += `
           <tr>
             <td class="py-3 px-4 font-bold">${p.rank}</td>
-            <td class="py-3 px-4">${p.name}</td>
+            <td class="py-3 px-4 relative">
+              <span class="player-name relative">
+                ${p.name}
+                <div class="tooltip">
+                  Win: ${percentages.win}%<br>
+                  Loss: ${percentages.loss}%<br>
+                  Draw: ${percentages.draw}%
+                </div>
+              </span>
+            </td>
             <td class="py-3 px-4">${p.elo}</td>
             <td class="py-3 px-4">${p.wins}</td>
             <td class="py-3 px-4">${p.losses}</td>
@@ -207,8 +280,15 @@
           </tr>
         `;
         cards.innerHTML += `
-          <div class="card">
-            <h3 class="text-lg font-bold">#${p.rank} - ${p.name}</h3>
+          <div class="card relative">
+            <h3 class="text-lg font-bold player-name relative">
+              #${p.rank} - ${p.name}
+              <div class="tooltip">
+                Win: ${percentages.win}%<br>
+                Loss: ${percentages.loss}%<br>
+                Draw: ${percentages.draw}%
+              </div>
+            </h3>
             <p>Elo: <span class="font-semibold">${p.elo}</span></p>
             <div class="flex justify-between text-sm mt-2">
               <span class="text-green-400">Wins: ${p.wins}</span>
@@ -218,6 +298,13 @@
           </div>
         `;
       });
+    }
+
+    function changeGameType() {
+      const select = document.getElementById('gameType');
+      currentGameType = select.value;
+      loadLeaderboard();
+      filterPlayers(); // keep search filter after switching
     }
 
     function filterPlayers() {
