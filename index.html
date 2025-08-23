@@ -22,6 +22,10 @@
       color: #bfb3ce;
     }
 
+    .header {
+      background-color: #31352D;
+    }
+
     .nav-link:hover {
       color: #0088a9;
     }
@@ -63,6 +67,16 @@
 
     table tbody tr:hover {
       background-color: #2c2d39;
+    }
+
+    /* Remove horizontal scrollbar from leaderboard table container */
+    .overflow-x-auto::-webkit-scrollbar {
+      display: none;
+    }
+    .overflow-x-auto {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;     /* Firefox */
+      overflow-x: auto;
     }
 
     .card {
@@ -208,34 +222,88 @@
     // Example data for both Blitz and Rapid
     const playersData = {
       blitz: [
-        { rank: 1, name: "Johnwille Castro", elo: 1980, wins: 13, losses: 5, draws: 2 },
-        { rank: 2, name: "John Quinto", elo: 1940, wins: 11, losses: 7, draws: 2 },
-        { rank: 3, name: "Spencer Augusto", elo: 1920, wins: 10, losses: 8, draws: 2 },
-        { rank: 4, name: "Jeffrey Tolintino", elo: 1900, wins: 9, losses: 8, draws: 3 },
-        { rank: 5, name: "Kurstine Saplan", elo: 1880, wins: 9, losses: 7, draws: 4 },
-        { rank: 6, name: "Russet Daroy", elo: 1680, wins: 4, losses: 11, draws: 3 },
-        { rank: 7, name: "Roselle Estrada", elo: 1700, wins: 5, losses: 10, draws: 3 },
-        { rank: 8, name: "Earl De Guzman", elo: 1760, wins: 6, losses: 11, draws: 3 },
-        { rank: 9, name: "Rex Nening", elo: 1740, wins: 6, losses: 10, draws: 2 },
-        { rank: 10, name: "Denver Salinas", elo: 1800, wins: 7, losses: 9, draws: 4 },
-        { rank: 11, name: "Alona Marie De Guzman", elo: 1820, wins: 7, losses: 10, draws: 3 },
-        { rank: 12, name: "Ronnielyn Mejia Cuison", elo: 1720, wins: 5, losses: 11, draws: 2 },
-        { rank: 13, name: "Alber Frianeza", elo: 1860, wins: 8, losses: 9, draws: 3 },
+        { rank: 1, name: "AJ Pedralvez", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 2, name: "Alexander John Carlo Macam", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 3, name: "Alyka Joyce Mararac", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 4, name: "Andrei Benedict A.Sison", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 5, name: "Breen Ordonio", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 6, name: "Carlos Estrella", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 7, name: "Christian Earl De Guzman", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 8, name: "Christian Paul A. Plomantes", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 9, name: "Christian Jose ", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 10, name: "Daniel Ru", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 11, name: "Dave Dapitan", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 12, name: "Denver Sam Salinas", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 13, name: "Emmanuel Paras", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 14, name: "Exer Jay Gambot", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 15, name: "Jaimi Nakmai Abo ", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 16, name: "Jana Poquiz", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 17, name: "Jay-r Somintac De Vera", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 18, name: "Jhon Mark Quitlong", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 19, name: "John Christian Ramos ", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 20, name: "Jolo W. Cudal", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 21, name: "Justin Chris Fernandez", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 22, name: "Kurstine Nicole Saplan", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 23, name: "Kurt John Aquino", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 24, name: "Lavinia Galla", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 25, name: "Leanard Andrew Sison", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 26, name: "Manuel Ausa", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 27, name: "Mark Gandeza", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 28, name: "Mary Ann Distrito Castillo", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 29, name: "Raymark Palic", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 30, name: "Remegio Valdez", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 31, name: "Rex John Nening", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 32, name: "Rheyan Castro Felix", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 33, name: "Rolence John Esmolada", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 34, name: "Rommel Angelo Salazar", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 35, name: "Roselle Estrada", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 36, name: "Ry Zen", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 37, name: "Samuel De Vera", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 38, name: "Vince Delos Reyes", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 39, name: "Vincent Calimlim", elo: 1000, wins: 0, losses: 0, draws: 0 },
+
       ],
       rapid: [
-        { rank: 1, name: "John Quinto", elo: 2020, wins: 15, losses: 4, draws: 1 },
-        { rank: 2, name: "Johnwille Castro", elo: 2000, wins: 14, losses: 6, draws: 2 },
-        { rank: 3, name: "Spencer Augusto", elo: 1950, wins: 12, losses: 7, draws: 3 },
-        { rank: 4, name: "Kurstine Saplan", elo: 1930, wins: 11, losses: 8, draws: 3 },
-        { rank: 5, name: "Jeffrey Tolintino", elo: 1910, wins: 10, losses: 9, draws: 3 },
-        { rank: 6, name: "Denver Salinas", elo: 1890, wins: 9, losses: 10, draws: 3 },
-        { rank: 7, name: "Alber Frianeza", elo: 1880, wins: 8, losses: 10, draws: 4 },
-        { rank: 8, name: "Alona Marie De Guzman", elo: 1850, wins: 8, losses: 11, draws: 3 },
-        { rank: 9, name: "Earl De Guzman", elo: 1830, wins: 7, losses: 12, draws: 3 },
-        { rank: 10, name: "Roselle Estrada", elo: 1800, wins: 6, losses: 12, draws: 4 },
-        { rank: 11, name: "Rex Nening", elo: 1780, wins: 6, losses: 11, draws: 3 },
-        { rank: 12, name: "Ronnielyn Mejia Cuison", elo: 1750, wins: 5, losses: 12, draws: 3 },
-        { rank: 13, name: "Russet Daroy", elo: 1700, wins: 4, losses: 13, draws: 3 },
+        { rank: 1, name: "AJ Pedralvez", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 2, name: "Alexander John Carlo Macam", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 3, name: "Alyka Joyce Mararac", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 4, name: "Andrei Benedict A.Sison", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 5, name: "Breen Ordonio", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 6, name: "Carlos Estrella", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 7, name: "Christian Earl De Guzman", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 8, name: "Christian Paul A. Plomantes", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 9, name: "Christian Jose ", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 10, name: "Daniel Ru", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 11, name: "Dave Dapitan", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 12, name: "Denver Sam Salinas", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 13, name: "Emmanuel Paras", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 14, name: "Exer Jay Gambot", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 15, name: "Jaimi Nakmai Abo ", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 16, name: "Jana Poquiz", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 17, name: "Jay-r Somintac De Vera", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 18, name: "Jhon Mark Quitlong", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 19, name: "John Christian Ramos ", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 20, name: "Jolo W. Cudal", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 21, name: "Justin Chris Fernandez", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 22, name: "Kurstine Nicole Saplan", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 23, name: "Kurt John Aquino", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 24, name: "Lavinia Galla", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 25, name: "Leanard Andrew Sison", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 26, name: "Manuel Ausa", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 27, name: "Mark Gandeza", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 28, name: "Mary Ann Distrito Castillo", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 29, name: "Raymark Palic", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 30, name: "Remegio Valdez", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 31, name: "Rex John Nening", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 32, name: "Rheyan Castro Felix", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 33, name: "Rolence John Esmolada", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 34, name: "Rommel Angelo Salazar", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 35, name: "Roselle Estrada", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 36, name: "Ry Zen", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 37, name: "Samuel De Vera", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 38, name: "Vince Delos Reyes", elo: 1000, wins: 0, losses: 0, draws: 0 },
+        { rank: 39, name: "Vincent Calimlim", elo: 1000, wins: 0, losses: 0, draws: 0 },
+
       ]
     };
 
